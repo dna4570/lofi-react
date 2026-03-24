@@ -1,0 +1,4 @@
+[
+  { "id": 1, "title": "Lo-Fi Breeze", "artist": "Yokoyama", "src": "/audio/lofi1.mp3", "cover": "/covers/1.jpg", "bpm": 85 },
+  { "id": 2, "title": "Night Coffee", "artist": "Yokoyama", "src": "/audio/lofi2.mp3", "cover": "/covers/2.jpg", "bpm": 78 }
+]
