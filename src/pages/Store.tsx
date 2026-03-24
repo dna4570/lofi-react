@@ -26,7 +26,7 @@ const tracks: Track[] = [
 ]
 
 export default function Store() {
-  const [current, setCurrent] = useState<Track>(tracks[0])
+  const [current] = useState<Track>(tracks[0])
   const [selected, setSelected] = useState<number[]>([])
   const audioRef = useRef<HTMLAudioElement>(null)
   const navigate = useNavigate()
