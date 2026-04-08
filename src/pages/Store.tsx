@@ -12,6 +12,7 @@ type Track = {
 }
 
 const tracks: Track[] = [
+  { id: 0, title: 'Lo-Fi Breeze', artist: 'Yokoyama', cover: '/covers/lofi-0.jpg', src: '/audio/lofi-0.mp3', price: 300 },
   { id: 1, title: 'Lo-Fi Breeze', artist: 'Yokoyama', cover: '/covers/lofi-1.jpg', src: '/audio/lofi-1.mp3', price: 300 },
   { id: 2, title: 'Night Coffee', artist: 'Yokoyama', cover: '/covers/lofi-2.jpg', src: '/audio/lofi-2.mp3', price: 300 },
   { id: 3, title: 'Tape Hiss',    artist: 'Yokoyama', cover: '/covers/lofi-3.jpg', src: '/audio/lofi-3.mp3', price: 300 },
