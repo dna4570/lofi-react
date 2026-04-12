@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
 import { useNavigate } from 'react-router-dom'
 import { useCartStore } from '../store/cartStore'
 
@@ -31,6 +32,20 @@ export default function Store() {
   const [selected, setSelected] = useState<number[]>([])
   const audioRef = useRef<HTMLAudioElement>(null)
   const navigate = useNavigate()
+
+  const [userEmail, setUserEmail] = useState<string | null>(null)
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUserEmail(data.user?.email ?? null)
+    })
+  }, [])
+
+  const handleLogout = async () => {
+  await supabase.auth.signOut()
+  navigate('/login')
+}
+
   const { cart, addToCart } = useCartStore()
   const total = cart.reduce((sum, t) => sum + (t.price ?? 300), 0)
 
@@ -50,20 +65,29 @@ export default function Store() {
     <div className="min-h-screen bg-gradient-to-br from-zinc-900 to-slate-800 text-white">
       <div className="mx-auto max-w-6xl p-6 space-y-8">
 
-        <header className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Lo-Fi Store 🎧</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-sm opacity-70">tracks: {tracks.length}</span>
-            {cart.length > 0 && (
-              <button
-                className="bg-emerald-600 text-white text-sm px-3 py-1 rounded-full hover:bg-emerald-700"
-                onClick={() => navigate('/cart')}
-              >
-                cart {cart.length} / {total.toLocaleString()}JPY
-              </button>
-            )}
-          </div>
-        </header>
+<header className="flex items-center justify-between">
+  <h1 className="text-3xl font-bold">Lo-Fi Store 🎧</h1>
+  <div className="flex items-center gap-4">
+    <span className="text-sm opacity-70">tracks: {tracks.length}</span>
+    {userEmail && (
+      <span className="text-sm opacity-70">{userEmail}</span>
+    )}
+    {cart.length > 0 && (
+      <button
+        className="bg-emerald-600 text-white text-sm px-3 py-1 rounded-full hover:bg-emerald-700"
+        onClick={() => navigate('/cart')}
+      >
+        cart {cart.length} / {total.toLocaleString()}JPY
+      </button>
+    )}
+    <button
+      className="bg-red-600 text-white text-sm px-3 py-1 rounded-full hover:bg-red-700"
+      onClick={handleLogout}
+    >
+      ログアウト
+    </button>
+  </div>
+</header>
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="rounded-2xl overflow-hidden ring-1 ring-white/10 bg-white/5">

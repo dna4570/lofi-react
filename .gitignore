@@ -25,3 +25,6 @@ dist-ssr/
 
 public/audio/
 *.wav
+
+.env
+.env.local
